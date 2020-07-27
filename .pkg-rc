@@ -1,4 +1,4 @@
-if which apt-get 2>/dev/null; then
+if which apt-get &>/dev/null; then
   alias ai="apt-get install"
   alias aiy="apt-get install -y"
   alias au="apt-get update"
@@ -6,12 +6,12 @@ if which apt-get 2>/dev/null; then
   alias ali="apt list --installed"
 fi
 
-if which yum 2>/dev/null; then
+if which yum &>/dev/null; then
   alias yi="yum install"
   alias yiy="yum install -y"
 fi
 
-if which apk 2>/dev/null; then
+if which apk &>/dev/null; then
   alias aa="apk add"
   alias aay="apk add -y"
   alias au="apk update"
