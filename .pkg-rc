@@ -9,6 +9,8 @@ fi
 if which yum &>/dev/null; then
   alias yi="yum install"
   alias yiy="yum install -y"
+  alias ys="yum search"
+  alias yu="yum update"
 fi
 
 if which apk &>/dev/null; then
