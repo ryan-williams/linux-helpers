@@ -9,6 +9,8 @@ fi
 if which yum &>/dev/null; then
   alias yi="yum install"
   alias yiy="yum install -y"
+  alias syiy="sudo yum install -y"
+  alias epel="sudo amazon-linux-extras install epel -y"
   alias ys="yum search"
   alias yu="yum update"
 fi
