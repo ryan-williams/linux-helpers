@@ -13,6 +13,7 @@ if which yum &>/dev/null; then
   alias epel="sudo amazon-linux-extras install epel -y"
   alias ys="yum search"
   alias yu="yum update"
+  alias syu="sudo yum update"
 fi
 
 if which apk &>/dev/null; then
