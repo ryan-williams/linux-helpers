@@ -2,6 +2,9 @@ if which apt-get &>/dev/null; then
   alias ai="apt-get install"
   alias aiy="apt-get install -y"
   alias au="apt-get update"
+  alias sai="sudo apt-get install"
+  alias saiy="sudo apt-get install -y"
+  alias sau="sudo apt-get update"
   alias acs="apt-cache search"
   alias ali="apt list --installed"
 fi
