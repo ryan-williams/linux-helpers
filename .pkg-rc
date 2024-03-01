@@ -21,6 +21,8 @@ if which yum &>/dev/null; then
   alias yuy="yum update -y"
   alias syu="sudo yum update"
   alias syuy="sudo yum update -y"
+  alias yl="yum list"
+  alias yli="yum list installed"
 fi
 
 if which apk &>/dev/null; then
