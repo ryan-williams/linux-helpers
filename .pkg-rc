@@ -41,3 +41,30 @@ export VCPKG_ROOT="$c/vcpkg"
 if [ ! -d "$VCPKG_ROOT" ]; then
   unset VCPKG_ROOT
 fi
+
+mkswap() {
+    if [ $# -eq 0 ] || [ $# -gt 2 ]; then
+        echo "Usage: mkswap <size> [dst=/swapfile]"
+        return 1
+    fi
+
+    cur="$(sudo swapon --show)"
+    if [ -n "$cur" ]; then
+        echo "Swap already exists:" >&2
+        echo "$cur" >&2
+        return 1
+    fi
+
+    size="$1"; shift
+    if [ $# -gt 0 ]; then
+        dst="$1"; shift
+    else
+        dst="/swapfile"
+    fi
+    sudo fallocate -l "$size" "$dst"
+    sudo chmod 600 "$dst"
+    sudo mkswap "$dst"
+    sudo swapon "$dst"
+    sudo swapon --show
+    echo "$dst swap swap defaults 0 0" | sudo tee -a /etc/fstab
+}
