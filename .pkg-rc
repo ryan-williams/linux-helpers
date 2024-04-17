@@ -68,3 +68,34 @@ mkswap() {
     sudo swapon --show
     echo "$dst swap swap defaults 0 0" | sudo tee -a /etc/fstab
 }
+
+install_gcc() {
+    if [ $# -eq 0 ]; then
+        local v=13.2.0
+    else
+        local v="$1"; shift
+        if [ $# -eq 0 ]; then
+            local prefix=/usr/local
+        else
+            local prefix="$1"; shift
+            if [ $# -ne 0 ]; then
+                echo "Usage: install_gcc [version=13.2.0 [prefix=/usr/local]]" >&2
+                return 1
+            fi
+        fi
+    fi
+    wget https://ftp.gnu.org/gnu/gcc/gcc-$v/gcc-$v.tar.gz
+    tar -xzf gcc-$v.tar.gz
+    cd gcc-$v
+    ./contrib/download_prerequisites
+    mkdir objdir && cd objdir
+    local dir="$prefix/gcc-$v"
+    ../configure --prefix=$dir --enable-languages=c,c++ --disable-multilib
+    time make -j$(nproc)
+    sudo make install
+    export PATH="$dir/bin:$PATH"
+    export LD_LIBRARY_PATH="$dir/lib64:$LD_LIBRARY_PATH"
+    echo "You may want to add these to your shell profile:" >&2
+    echo "export PATH=\"$dir/bin:\$PATH\"" >&2
+    echo "export LD_LIBRARY_PATH=\"$dir/lib64:\$LD_LIBRARY_PATH\"" >&2
+}
