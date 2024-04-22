@@ -17,12 +17,19 @@ fi
 
 install_devtools() {
     # Adapted from https://stackoverflow.com/a/66376026/23555888
-    v="${1:-11}"
+    local v="${1:-11}"
     sudo yum-config-manager --add-repo http://mirror.centos.org/centos/7/sclo/x86_64/rh/
     sudo yum install -y wget
-    wget http://mirror.centos.org/centos/7/os/x86_64/Packages/libgfortran5-8.3.1-2.1.1.el7.x86_64.rpm
-    sudo yum install libgfortran5-8.3.1-2.1.1.el7.x86_64.rpm -y
+
+    fortran=libgfortran5-8.3.1-2.1.1.el7.x86_64.rpm
+    wget http://mirror.centos.org/centos/7/os/x86_64/Packages/$fortran
+    sudo yum install $fortran -y
+    rm $fortran
+
     sudo yum install -y devtoolset-$v --nogpgcheck
     scl enable devtoolset-$v bash
+    echo >> ~/.bash_profile
+    echo "# Use GCC $v; see https://github.com/ryan-williams/linux-helpers/blob/main/.yum-rc" >> ~/.bash_profile
+    echo "scl enable devtoolset-$v bash" >> ~/.bash_profile
     which -a gcc
 }
