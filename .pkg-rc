@@ -75,7 +75,7 @@ install_gcc() {
 
 install_cmake() {
     cmake_version="${1:-3.29.2}"
-    cmake_stem=cmake-$cmake_version-linux-x86_64.sh
+    cmake_stem=cmake-$cmake_version-linux-x86_64
     wget https://github.com/Kitware/CMake/releases/download/v$cmake_version/$cmake_stem.sh
     bash $cmake_stem.sh
     export PATH="$HOME/$cmake_stem/bin:$PATH"
