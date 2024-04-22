@@ -27,9 +27,10 @@ install_devtools() {
     rm $fortran
 
     sudo yum install -y devtoolset-$v --nogpgcheck
-    scl enable devtoolset-$v bash
+    local enable=/opt/rh/devtoolset-$v/enable
+    . "$enable"
     echo >> ~/.bash_profile
     echo "# Use GCC $v; see https://github.com/ryan-williams/linux-helpers/blob/main/.yum-rc" >> ~/.bash_profile
-    echo "scl enable devtoolset-$v bash" >> ~/.bash_profile
+    echo ". \"$enable\"" >> ~/.bash_profile
     which -a gcc
 }
