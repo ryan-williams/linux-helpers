@@ -72,3 +72,15 @@ install_gcc() {
     echo "export PATH=\"$dir/bin:\$PATH\"" >&2
     echo "export LD_LIBRARY_PATH=\"$dir/lib64:\$LD_LIBRARY_PATH\"" >&2
 }
+
+install_cmake() {
+    cmake_version="${1:-3.29.2}"
+    cmake_stem=cmake-$cmake_version-linux-x86_64.sh
+    wget https://github.com/Kitware/CMake/releases/download/v$cmake_version/$cmake_stem.sh
+    bash $cmake_stem.sh
+    export PATH="$HOME/$cmake_stem/bin:$PATH"
+    echo >> ~/.bash_profile
+    echo "# Use CMake $cmake_version; see https://github.com/ryan-williams/linux-helpers/blob/main/.pkg-rc" >> ~/.bash_profile
+    echo "export PATH=\"\$HOME/$cmake_stem/bin:\$PATH\"" >> ~/.bash_profile
+    cmake --version
+}
