@@ -1,30 +1,3 @@
-if which apt-get &>/dev/null; then
-  alias ai="apt-get install"
-  alias aiy="apt-get install -y"
-  alias au="apt-get update"
-  alias sai="sudo apt-get install"
-  alias saiy="sudo apt-get install -y"
-  alias sau="sudo apt-get update"
-  alias sauy="sudo apt-get update -y"
-  alias acs="apt-cache search"
-  alias ali="apt list --installed"
-fi
-
-if which yum &>/dev/null; then
-  alias yif="yum info"
-  alias yi="yum install"
-  alias yiy="yum install -y"
-  alias syiy="sudo yum install -y"
-  alias epel="sudo amazon-linux-extras install epel -y"
-  alias ys="yum search"
-  alias yu="yum update"
-  alias yuy="yum update -y"
-  alias syu="sudo yum update"
-  alias syuy="sudo yum update -y"
-  alias yl="yum list"
-  alias yli="yum list installed"
-fi
-
 if which apk &>/dev/null; then
   alias aa="apk add"
   alias aay="apk add -y"

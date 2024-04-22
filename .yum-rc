@@ -1,0 +1,28 @@
+
+if which yum &>/dev/null; then
+  alias yif="yum info"
+  alias yi="yum install"
+  alias yiy="yum install -y"
+  alias syiy="sudo yum install -y"
+  alias syry="sudo yum reinstall -y"
+  alias epel="sudo amazon-linux-extras install epel -y"
+  alias ys="yum search"
+  alias yu="yum update"
+  alias yuy="yum upd˚ate -y"
+  alias syu="sudo yum update"
+  alias syuy="sudo yum update -y"
+  alias yl="yum list"
+  alias yli="yum list installed"
+fi
+
+install_devtools() {
+    # Adapted from https://stackoverflow.com/a/66376026/23555888
+    v="${1:-11}"
+    sudo yum-config-manager --add-repo http://mirror.centos.org/centos/7/sclo/x86_64/rh/
+    sudo yum install -y wget
+    wget http://mirror.centos.org/centos/7/os/x86_64/Packages/libgfortran5-8.3.1-2.1.1.el7.x86_64.rpm
+    sudo yum install libgfortran5-8.3.1-2.1.1.el7.x86_64.rpm -y
+    sudo yum install -y devtoolset-$v --nogpgcheck
+    scl enable devtoolset-$v bash
+    which -a gcc
+}
