@@ -36,4 +36,5 @@ install_devtools() {
     echo "# Use GCC $v; see https://github.com/ryan-williams/linux-helpers/blob/main/.yum-rc" >> ~/.bash_profile
     echo ". \"$enable\"" >> ~/.bash_profile
     which -a gcc
+    gcc --version
 }
