@@ -15,9 +15,9 @@ if [ ! -d "$VCPKG_ROOT" ]; then
   unset VCPKG_ROOT
 fi
 
-mkswap() {
+mk_swap() {
     if [ $# -eq 0 ] || [ $# -gt 2 ]; then
-        echo "Usage: mkswap <size> [dst=/swapfile]"
+        echo "Usage: mk_swap <size> [dst=/swapfile]"
         return 1
     fi
 
