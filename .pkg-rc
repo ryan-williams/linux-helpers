@@ -17,7 +17,7 @@ fi
 
 mk_swap() {
     if [ $# -eq 0 ] || [ $# -gt 2 ]; then
-        echo "Usage: mk_swap <size> [dst=/swapfile]"
+        echo "Usage: ${FUNCNAME[0]} <size> [dst=/swapfile]"
         return 1
     fi
 
@@ -52,7 +52,7 @@ install_gcc() {
         else
             local prefix="$1"; shift
             if [ $# -ne 0 ]; then
-                echo "Usage: install_gcc [version=13.2.0 [prefix=/usr/local]]" >&2
+                echo "Usage: ${FUNCNAME[0]} [version=13.2.0 [prefix=/usr/local]]" >&2
                 return 1
             fi
         fi
