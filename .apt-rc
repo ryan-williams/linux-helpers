@@ -1,5 +1,6 @@
 if which apt-get &>/dev/null; then
   alias ai="apt-get install"
+  alias aif="apt info"
   alias aiy="apt-get install -y"
   alias au="apt-get update"
   alias sai="sudo apt-get install"
