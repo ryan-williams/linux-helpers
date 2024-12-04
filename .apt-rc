@@ -3,6 +3,7 @@ if which apt-get &>/dev/null; then
   alias aif="apt info"
   alias aiy="apt-get install -y"
   alias au="apt-get update"
+  alias auy="apt-get update -y"
   alias sai="sudo apt-get install"
   alias saiy="sudo apt-get install -y"
   alias sau="sudo apt-get update"
