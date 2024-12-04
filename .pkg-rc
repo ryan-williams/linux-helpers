@@ -84,3 +84,27 @@ install_cmake() {
     echo "export PATH=\"\$HOME/$cmake_stem/bin:\$PATH\"" >> ~/.bash_profile
     cmake --version
 }
+
+install_nvidia_drivers_ubuntu() {
+    if ! which apt &>/dev/null; then
+        echo '`apt` not found' >&2
+        return 1
+    fi
+    local sudo=
+    if [ "$USER" != root ]; then
+        sudo=sudo
+    fi
+    $sudo apt update -y
+    $sudo apt install -y build-essential
+    $sudo apt install -y linux-headers-$(uname -r)
+    nvidia_driver_pkg="$(apt-cache search nvidia-driver- | grep '^nvidia-driver-[0-9]* - ' | cut -d' ' -f1 | sort -t- -nk3 | tail -n1)"
+    if [ -z "$nvidia_driver_pkg" ]; then
+        echo "Error looking up nvidia-driver-XXX version" >&2
+        return 2
+    fi
+    $sudo apt install -y "$nvidia_driver_pkg" nvidia-cuda-toolkit
+    echo "blacklist nouveau" | $sudo tee /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+    $sudo update-initramfs -u
+    echo "Rebooting instance"
+    $sudo reboot
+}
