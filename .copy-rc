@@ -1,0 +1,34 @@
+# OSC52 copy protocol
+function copy() {
+    if [ $# -eq 0 ]; then
+        printf "\033]52;c;$(cat | base64)\a"
+    elif [ $# -eq 1 ]; then
+        printf "\033]52;c;$(printf "$1" | base64)\a"
+    else
+        echo "Usage: copy [content]" >&2
+        return 1
+    fi
+}
+
+tee_copy() {
+  cat "$@" | tee >(copy)
+}
+alias tcy=tee_copy
+alias ty=tee_copy
+alias cyt=tee_copy
+
+canonicalize_copy() {
+  realpath -s "$@" | copy
+}
+alias czy=canonicalize_copy
+
+pwd_copy() {
+  pwd | copy
+}
+alias pscy=pwd_copy
+
+pwd_tee_copy() {
+  pwd | tee_copy
+}
+alias ptcy=pwd_tee_copy
+alias pcy=pwd_tee_copy
