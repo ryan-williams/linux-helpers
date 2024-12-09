@@ -1,7 +1,11 @@
 # OSC52 copy protocol
 function copy() {
-    if [ $# -eq 0 ]; then
-        printf "\033]52;c;$(cat | base64)\a"
+    if which pbcopy &>/dev/null; then
+        pbcopy "$@"
+    elif [ $# -eq 0 ]; then
+        printf "\033]52;c;"
+        cat | base64
+        printf "\a"
     elif [ $# -eq 1 ]; then
         printf "\033]52;c;$(printf "$1" | base64)\a"
     else
