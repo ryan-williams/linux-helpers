@@ -7,7 +7,6 @@ fi
 if which snap &>/dev/null; then
     alias si="snap install"
     alias ssi="sudo snap install"
-    alias ssiy="sudo snap install -y"
 fi
 
 export VCPKG_ROOT="$c/vcpkg"
