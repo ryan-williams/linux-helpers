@@ -10,4 +10,5 @@ if which apt-get &>/dev/null; then
   alias sauy="sudo apt-get update -y"
   alias acs="apt-cache search"
   alias ali="apt list --installed"
+  alias alia="apt list --installed -a"
 fi
