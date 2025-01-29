@@ -19,26 +19,30 @@ mk_swap() {
         echo "Usage: ${FUNCNAME[0]} <size> [dst=/swapfile]"
         return 1
     fi
-
-    cur="$(sudo swapon --show)"
+    local sudo=
+    if [ "$USER" != root ] && [ "$(whoami)" != root ]; then
+        sudo=sudo
+    fi
+    local cur="$($sudo swapon --show)"
     if [ -n "$cur" ]; then
         echo "Swap already exists:" >&2
         echo "$cur" >&2
         return 1
     fi
 
-    size="$1"; shift
+    local size="$1"; shift
+    local dst
     if [ $# -gt 0 ]; then
         dst="$1"; shift
     else
         dst="/swapfile"
     fi
-    sudo fallocate -l "$size" "$dst"
-    sudo chmod 600 "$dst"
-    sudo mkswap "$dst"
-    sudo swapon "$dst"
-    sudo swapon --show
-    echo "$dst swap swap defaults 0 0" | sudo tee -a /etc/fstab
+    $sudo fallocate -l "$size" "$dst"
+    $sudo chmod 600 "$dst"
+    $sudo mkswap "$dst"
+    $sudo swapon "$dst"
+    $sudo swapon --show
+    echo "$dst swap swap defaults 0 0" | $sudo tee -a /etc/fstab
 }
 
 install_gcc() {
