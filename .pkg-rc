@@ -46,14 +46,14 @@ mk_swap() {
 }
 
 install_gcc() {
+    local v
+    local prefix=/usr/local
     if [ $# -eq 0 ]; then
-        local v=13.2.0
+        v=13.3.0
     else
-        local v="$1"; shift
-        if [ $# -eq 0 ]; then
-            local prefix=/usr/local
-        else
-            local prefix="$1"; shift
+        v="$1"; shift
+        if [ $# -gt 0 ]; then
+            prefix="$1"; shift
             if [ $# -ne 0 ]; then
                 echo "Usage: ${FUNCNAME[0]} [version=13.2.0 [prefix=/usr/local]]" >&2
                 return 1
@@ -68,7 +68,11 @@ install_gcc() {
     local dir="$prefix/gcc-$v"
     ../configure --prefix=$dir --enable-languages=c,c++ --disable-multilib
     time make -j$(nproc)
-    sudo make install
+    local sudo=
+    if [ "$USER" != root ] && [ "$(whoami)" != root ]; then
+        sudo=sudo
+    fi
+    $sudo make install
     export PATH="$dir/bin:$PATH"
     export LD_LIBRARY_PATH="$dir/lib64:$LD_LIBRARY_PATH"
     echo "You may want to add these to your shell profile:" >&2
