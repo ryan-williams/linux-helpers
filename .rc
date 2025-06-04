@@ -1,3 +1,13 @@
+touch_mkdir() {
+  local arg
+  for arg in "$@"; do
+    mkdir -p "$(dirname "$arg")"
+    touch "$arg"
+  done
+}
+export -f touch_mkdir
+defn tmd touch_mkdir
+
 if which apk &>/dev/null; then
   alias aa="apk add"
   alias aay="apk add -y"
