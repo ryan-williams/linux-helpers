@@ -22,7 +22,14 @@ alias ty=tee_copy
 alias cyt=tee_copy
 
 canonicalize_copy() {
-  realpath -s "$@" | copy
+  local path
+  if [ $# -eq 0 ]; then
+    path="$(pwd)"
+  else
+    path="$(realpath -s "$@")"
+  fi
+  printf "%s\n" "$path"
+  printf "%s" "$path" | copy
 }
 alias czy=canonicalize_copy
 
