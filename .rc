@@ -19,10 +19,6 @@ if which snap &>/dev/null; then
     alias ssi="sudo snap install"
 fi
 
-export VCPKG_ROOT="$c/vcpkg"
-if [ ! -d "$VCPKG_ROOT" ]; then
-  unset VCPKG_ROOT
-fi
 
 mk_swap() {
     if [ $# -eq 0 ] || [ $# -gt 2 ]; then
